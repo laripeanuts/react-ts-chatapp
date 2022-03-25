@@ -1,8 +1,13 @@
 import { FC } from "react";
 
-interface IProps {}
+interface IProps {
+  user: any;
+  signOut: any;
+}
 
-const Header: FC<IProps> = () => {
+export const Header: FC<IProps> = ({ user, signOut }) => {
+  const handleSignOut = () => signOut();
+
   return (
     <div className="flex px-4 items-center justify-between py-3 border-b-2 border-gray-200">
       <div className="relative flex items-center space-x-4">
@@ -12,18 +17,18 @@ const Header: FC<IProps> = () => {
               <circle cx="8" cy="8" r="8" fill="currentColor"></circle>
             </svg>
           </span>
-
-          <img src="https://i.pravatar.cc/96?u=1" className="rounded-full" />
+          <img src={user.photoURL} className="rounded-full" alt="Avatar" />
         </div>
         <div className="flex flex-col leading-tight">
           <div className="text-2xl mt-1 flex items-center">
-            <span className="text-gray-700 mr-3">João Silva</span>
+            <span className="text-gray-700 mr-3">{user.displayName}</span>
           </div>
-          <span className="text-lg text-gray-600">rodrigosol@gmail.com</span>
+          <span className="text-lg text-gray-600">{user.email}</span>
         </div>
       </div>
       <div className="flex items-center space-x-2">
         <button
+          onClick={handleSignOut}
           type="button"
           className="inline-flex items-center justify-center rounded-lg border h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
         >
@@ -44,4 +49,3 @@ const Header: FC<IProps> = () => {
     </div>
   );
 };
-export default Header;
